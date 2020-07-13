@@ -1,15 +1,19 @@
 # Hermes
 
-> Hermes (cryptonym to "web-bridge") is a containerized NGINX reverse-proxy + SSH tunnel installation
+> Hermes (cryptonym to "web-bridge") is a containerized NGINX reverse-proxy + SSH tunnel installation +
+> an application for introspected tunnels to localhost
 
-This project is used to setup a proxy-server using NGINX + SSH Tunnel. The problem and solution are: (1) there
+This project was once used to setup a proxy-server using NGINX + SSH Tunnel. The problem and solution are: (1) there
 is a *hidden* server in the Web, which is not directly open to the open Web; (2) a Docker container connects to
 the *hidden* server through SSH, creating a SSH Tunnel inside the container and making it available to the
-NGINX setup through a localhost port; (3) the open Web can access the *hidden* server through this setup.
+NGINX setup through a localhost port; (3) the open Web can access the *hidden* HTTP server through this setup.
+Basically, it is intended to be used in a home-private context with TCP-port restrictions imposed by an ISP or network setup.
 
-Basically, it is intended to be used in a home-private context with TCP-port restrictions imposed by an ISP.
+Currently, there's an application for introspected tunnels to localhost, just like [ngrok v1](inconshreveable/ngrok)
+used to work. You may define several applications running in a *hidden* server and the application will make them
+available to the open Web.
 
-## Setup & Running
+## Setup & Running for the containerized (initial) solution
 
 The following image installs [NGINX Amplify](https://amplify.nginx.com/), if the `API_KEY` build-argument is available.
 `REMOTE_USER` and `REMOTE_DOMAIN` is mandatory, as well as the `machine.pem` file in the project root; that file is
