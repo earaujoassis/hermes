@@ -4,7 +4,9 @@ import (
     "log"
 
     "github.com/joho/godotenv"
+
     "github.com/earaujoassis/hermes/server"
+    "github.com/earaujoassis/hermes/server/web"
 )
 
 func init() {
@@ -16,4 +18,5 @@ func init() {
 
 func main() {
     server.RepositoryStart()
+    web.Setup()
 }
