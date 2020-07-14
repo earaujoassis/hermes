@@ -5,7 +5,7 @@ import (
     "log"
     "net"
 
-    "github.com/earaujoassis/hermes/server/config"
+    "github.com/earaujoassis/hermes/config"
 )
 
 func SetupTunnel() {
@@ -19,7 +19,7 @@ func SetupTunnel() {
     for {
         conn, err := listener.Accept()
         if err != nil {
-            log.Println("[TUNNEL] Error while accepting connection: ", err.Error())
+            log.Println("[TUNNEL] Failed to accept connection: ", err.Error())
             continue
         }
 

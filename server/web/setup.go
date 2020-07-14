@@ -7,7 +7,7 @@ import (
 
     "github.com/gin-gonic/gin"
 
-    "github.com/earaujoassis/hermes/server/config"
+    "github.com/earaujoassis/hermes/config"
 )
 
 func SetupWeb() {

@@ -1,5 +1,4 @@
 FROM nginx:1.15.5-alpine
-MAINTAINER Ewerton Carlos Assis <earaujoassis@gmail.com>
 
 ARG REMOTE_USER
 ARG REMOTE_DOMAIN

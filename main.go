@@ -10,6 +10,7 @@ import (
     "github.com/earaujoassis/hermes/server"
     "github.com/earaujoassis/hermes/server/web"
     "github.com/earaujoassis/hermes/server/tunnel"
+    "github.com/earaujoassis/hermes/client"
 )
 
 func loadDotenv() {
@@ -19,7 +20,8 @@ func loadDotenv() {
     }
 }
 
-func main() {    app := cli.NewApp()
+func main() {
+    app := cli.NewApp()
     app.Name = "Hermes"
     app.Usage = "An application for introspected tunnels to localhost"
     app.EnableBashCompletion = true
@@ -38,7 +40,16 @@ func main() {    app := cli.NewApp()
             Name:    "tunnel",
             Usage:   "Serve the tunnel server",
             Action:  func(c *cli.Context) error {
+                loadDotenv()
                 tunnel.SetupTunnel()
+                return nil
+            },
+        },
+        {
+            Name:    "client",
+            Usage:   "Client resposible for creating and retrieving HTTP messages",
+            Action:  func(c *cli.Context) error {
+                client.SetupClient()
                 return nil
             },
         },

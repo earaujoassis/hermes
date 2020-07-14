@@ -7,7 +7,7 @@ import (
     _ "github.com/jinzhu/gorm/dialects/postgres"
 
     "github.com/earaujoassis/hermes/server/models"
-    "github.com/earaujoassis/hermes/server/config"
+    "github.com/earaujoassis/hermes/config"
 )
 
 var dataStore *gorm.DB

@@ -1,0 +1,4 @@
+{
+    "hermes_amqp": "AMQP_URL",
+    "hermes_client_handler_server": "HOSTNAME:PORT"
+}

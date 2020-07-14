@@ -31,7 +31,7 @@ The following command can be used to remove dangling images created through the 
 $ docker images --quiet --filter=dangling=true | xargs docker rmi
 ```
 
-## Setup & Running introspected tunnels to localhost
+## Setup & Running introspected tunnels to localhost (server)
 
 A `.env` file is used to load environment information for the application – `.env.sample` is available with important
 environment variables. Since the application uses two processes, we use `goreman` (a Golang fork of Foreman) to initiate
@@ -43,6 +43,17 @@ Once the configuration is complete, the following commands will run the applicat
 $ go get github.com/mattn/goreman
 $ goreman start
 $ open http://localhost:5000
+```
+
+## Setup & Running introspected tunnels to localhost (client/resolver)
+
+A `~/.hermes.config.json` file is used to load configuration options for the client application – `.hermes.config.json`
+is available as an sample.
+
+Once the configuration is complete, the following commands will run the application locally:
+
+```sh
+$ go run main.go client
 ```
 
 ## License
