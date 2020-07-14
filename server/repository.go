@@ -7,6 +7,7 @@ import (
     _ "github.com/jinzhu/gorm/dialects/postgres"
 
     "github.com/earaujoassis/hermes/server/models"
+    "github.com/earaujoassis/hermes/server/config"
 )
 
 var dataStore *gorm.DB
@@ -24,13 +25,14 @@ func GetDataStoreConnection() *gorm.DB {
     }
     var err error
     var databaseName = fmt.Sprintf("%v_%v",
-        GetEnvVarDefault("HERMES_DATASTORE_PREFIX", "hermes"), GetEnvVarDefault("HERMES_ENV", "development"))
+        config.GetEnvVarDefault("HERMES_DATASTORE_PREFIX", "hermes"),
+        config.GetEnvVarDefault("HERMES_ENV", "development"))
     var databaseConnectionData = fmt.Sprintf("host=%s user=%s dbname=%s sslmode=%s password=%s",
-        GetEnvVarDefault("HERMES_DATASTORE_HOST", "localhost"),
-        GetEnvVarDefault("HERMES_DATASTORE_USERNAME", "postgres"),
+        config.GetEnvVarDefault("HERMES_DATASTORE_HOST", "localhost"),
+        config.GetEnvVarDefault("HERMES_DATASTORE_USERNAME", "postgres"),
         databaseName,
-        GetEnvVarDefault("HERMES_DATASTORE_SSL_MODE", "disable"),
-        GetEnvVarDefault("HERMES_DATASTORE_PASSWORD", ""),
+        config.GetEnvVarDefault("HERMES_DATASTORE_SSL_MODE", "disable"),
+        config.GetEnvVarDefault("HERMES_DATASTORE_PASSWORD", ""),
     )
     fmt.Printf("Connected to the following datastore: %v\n", databaseConnectionData)
     dataStore, err = gorm.Open("postgres", databaseConnectionData)

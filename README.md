@@ -32,6 +32,20 @@ The following command can be used to remove dangling images created through the 
 $ docker images --quiet --filter=dangling=true | xargs docker rmi
 ```
 
+## Setup & Running introspected tunnels to localhost
+
+A `.env` file is used to load environment information for the application – `.env.sample` is available with important
+environment variables. Since the application uses two processes, we use `goreman` (a Golang fork of Foreman) to initiate
+all necessary processes.
+
+Once the configuration is complete, the following commands will run the application locally:
+
+```sh
+$ go get github.com/mattn/goreman
+$ goreman start
+$ open http://localhost:5000
+```
+
 ## License
 
 [MIT License](http://earaujoassis.mit-license.org/) &copy; Ewerton Assis

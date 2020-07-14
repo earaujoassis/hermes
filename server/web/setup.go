@@ -7,10 +7,10 @@ import (
 
     "github.com/gin-gonic/gin"
 
-    "github.com/earaujoassis/hermes/server"
+    "github.com/earaujoassis/hermes/server/config"
 )
 
-func Setup() {
+func SetupWeb() {
     router := gin.Default()
     exposeRoutes(router)
     router.Use(func(c *gin.Context) {
@@ -41,5 +41,5 @@ func Setup() {
             c.String(http.StatusNotFound, "error.not_found")
         }
     })
-    router.Run(fmt.Sprintf(":%v", server.GetEnvVarDefault("PORT", "8080")))
+    router.Run(fmt.Sprintf(":%v", config.GetEnvVarDefault("PORT", "8080")))
 }

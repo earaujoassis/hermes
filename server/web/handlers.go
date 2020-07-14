@@ -12,3 +12,7 @@ func listClientsHandler(c *gin.Context) {
         "clients": nil,
     })
 }
+
+func createClientHandler(c *gin.Context) {
+
+}
