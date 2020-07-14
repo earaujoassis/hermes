@@ -1,7 +1,6 @@
 # Hermes
 
-> Hermes (cryptonym to "web-bridge") is a containerized NGINX reverse-proxy + SSH tunnel installation +
-> an application for introspected tunnels to localhost
+> Hermes (cryptonym to "web-bridge") is an application for introspected tunnels to localhost
 
 This project was once used to setup a proxy-server using NGINX + SSH Tunnel. The problem and solution are: (1) there
 is a *hidden* server in the Web, which is not directly open to the open Web; (2) a Docker container connects to
