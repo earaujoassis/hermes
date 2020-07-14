@@ -10,9 +10,9 @@ import (
 
 func handle(clientConn net.Conn) {
     defer clientConn.Close()
-    clientConn.SetReadDeadline(time.Now().Add(time.Millisecond * 200))
     log.Println(fmt.Sprintf("[TUNNEL] Received a connection from: %s", clientConn.RemoteAddr()))
     for {
+        clientConn.SetReadDeadline(time.Now().Add(time.Millisecond * 200))
         requestBuffer, _ := readConn(clientConn)
         if requestBuffer.Len() > 0 {
             // fmt.Printf("%#v\n", requestBuffer.String())
