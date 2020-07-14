@@ -13,11 +13,11 @@ func handle(clientConn net.Conn) {
     log.Println(fmt.Sprintf("[TUNNEL] Received a connection from: %s", clientConn.RemoteAddr()))
     for {
         clientConn.SetReadDeadline(time.Now().Add(time.Millisecond * 200))
-        requestBuffer, _ := readConn(clientConn)
+        requestBuffer, err := readConn(clientConn)
         if requestBuffer.Len() > 0 {
             // fmt.Printf("%#v\n", requestBuffer.String())
             proxyConn(clientConn, requestBuffer)
-        } else {
+        } else if err != nil {
             break
         }
     }
