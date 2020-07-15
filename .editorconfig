@@ -13,3 +13,6 @@ indent_size = 4
 
 [{pre-deploy,deploy,post-deploy}]
 indent_size = 4
+
+[*.yml]
+indent_size = 2

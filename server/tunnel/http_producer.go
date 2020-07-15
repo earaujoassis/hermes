@@ -16,7 +16,10 @@ const (
 func dispatchRequest(requestBuffer []byte) (bytes.Buffer, error) {
     responseBuffer := &bytes.Buffer{}
 
-    conn, err := amqp.Dial(config.GetEnvVar("HERMES_AMQP"))
+    cfg := config.CreateTLSConfig(config.GetEnvVar("HERMES_CACERTFILE"),
+        config.GetEnvVar("HERMES_CERTFILE"),
+        config.GetEnvVar("HERMES_KEYFILE"))
+    conn, err := amqp.DialTLS(config.GetEnvVar("HERMES_AMQP"), cfg)
     if err != nil {
         return *responseBuffer, err
     }

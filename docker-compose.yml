@@ -1,0 +1,75 @@
+version: '3.5'
+
+networks:
+  projects:
+    name: quatrolabs-projects-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.177.57.0/24
+
+services:
+  hermes-postgres:
+    image: postgres:9.6.10
+    container_name: hermes-postgres
+    hostname: hermes-postgres
+    expose:
+      - "5432"
+    restart: always
+    volumes:
+      - hermes-postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: hermes
+      POSTGRES_PASSWORD: xNxYenX6bpzdaHTi
+      POSTGRES_DB: hermes_production
+    networks:
+      - projects
+
+  hermes-rabbitmq:
+    image: rabbitmq:3.7.26-management-alpine
+    container_name: hermes-rabbitmq
+    hostname: hermes-rabbitmq
+    expose:
+      - "15672"
+      - "5672"
+    networks:
+      - projects
+
+  hermes-web:
+    build:
+      context: .
+    container_name: hermes-web
+    image: hermes
+    restart: always
+    ports:
+      - "8484:80"
+    command: ["web"]
+    environment:
+      HERMES_ENV: production
+      HERMES_DATASTORE_HOST: hermes-postgres
+      HERMES_DATASTORE_USERNAME: hermes
+      HERMES_DATASTORE_PASSWORD: xNxYenX6bpzdaHTi
+      HERMES_AMQP: "amqp://guest:guest@hermes-rabbitmq:5672/"
+    networks:
+      - projects
+
+  hermes-tunnel:
+    build:
+      context: .
+    container_name: hermes-tunnel
+    image: hermes
+    restart: always
+    ports:
+      - "8585:80"
+    command: ["tunnel"]
+    environment:
+      HERMES_ENV: production
+      HERMES_AMQP: "amqp://guest:guest@hermes-rabbitmq:5672/"
+      HERMES_CACERTFILE:
+      HERMES_CERTFILE:
+      HERMES_KEYFILE:
+    networks:
+      - projects
+
+volumes:
+  hermes-postgres-data:

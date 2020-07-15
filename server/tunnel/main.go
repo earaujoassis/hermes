@@ -11,7 +11,7 @@ import (
 func SetupTunnel() {
     listener, err := net.Listen("tcp", fmt.Sprintf(":%v", config.GetEnvVarDefault("PORT", "8080")))
     if err != nil {
-        log.Fatalln("[TUNNEL] Panic: could not initiate listener: ", err.Error())
+        log.Fatalln("[TUNNEL] Panic: failed to initiate listener: ", err.Error())
     }
     log.Println(fmt.Sprintf("[TUNNEL] Listening on port :%v", config.GetEnvVarDefault("PORT", "8080")))
     defer listener.Close()

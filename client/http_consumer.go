@@ -9,7 +9,10 @@ import (
 )
 
 func setupConsumer() error {
-    conn, err := amqp.Dial(config.LoadConfig().AmqpUrl)
+    var globalConfig config.Config = config.LoadConfig()
+
+    cfg := config.CreateTLSConfig(globalConfig.CACertFile, globalConfig.CertFile, globalConfig.KeyFile)
+    conn, err := amqp.DialTLS(globalConfig.AmqpUrl, cfg)
     if err != nil {
         return err
     }
@@ -53,7 +56,7 @@ func setupConsumer() error {
         }
     }()
 
-    log.Printf("[CLIENT][AMQP] Waiting for messages. To exit press CTRL+C")
+    log.Println("[CLIENT][AMQP] Waiting for messages. To exit press CTRL+C")
     <-forever
     return nil
 }

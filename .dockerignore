@@ -1,0 +1,12 @@
+.DS_Store
+.vscode
+.editorconfig
+.tool-versions
+bin/
+pki-client/
+*.log
+Dockerfile
+docker-compose.yml
+Procfile
+.hermes.config.json
+.env

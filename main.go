@@ -16,7 +16,7 @@ import (
 func loadDotenv() {
     err := godotenv.Load()
     if err != nil {
-        log.Printf("> The environment file (.env) doesn't exist; skipping\n")
+        log.Println("> The environment file (.env) doesn't exist; skipping")
     }
 }
 

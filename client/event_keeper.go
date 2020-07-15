@@ -7,6 +7,6 @@ import (
 func SetupClient() {
     err := setupConsumer()
     if err != nil {
-        log.Fatal("[CLIENT][AMQP] Failed setup client; fatal")
+        log.Fatal("[CLIENT][AMQP] Panic: failed to setup client: ", err.Error())
     }
 }

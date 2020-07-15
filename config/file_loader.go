@@ -17,6 +17,9 @@ const (
 type Config struct {
     AmqpUrl string `json:"hermes_amqp"`
     ClientHandlerServer string `json:"hermes_client_handler_server"`
+    CACertFile string `json:"hermes_cacertfile"`
+    CertFile string `json:"hermes_certfile"`
+    KeyFile string `json:"hermes_keyfile"`
 }
 
 // LoadConfig loads the globalConfig structure from a JSON-based stream
@@ -35,7 +38,7 @@ func LoadConfig() Config {
         }
     } else {
         // no configuration option available
-        log.Fatal("> No configuration option is available; fatal")
+        log.Fatal("> No configuration option is available; panic")
     }
 
     err = json.Unmarshal([]byte(dataStream), &globalConfig)
