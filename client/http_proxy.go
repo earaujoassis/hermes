@@ -3,7 +3,6 @@ package client
 import (
     "bytes"
     "net"
-    "time"
 
     "github.com/earaujoassis/hermes/tcp"
     "github.com/earaujoassis/hermes/config"
@@ -16,7 +15,6 @@ func proxyConn(requestBuffer []byte) (bytes.Buffer, error) {
         return responseBuffer, err
     }
     defer tunnelConn.Close()
-    tunnelConn.SetReadDeadline(time.Now().Add(time.Millisecond * 200))
 
     _, err = tunnelConn.Write(requestBuffer)
     if err != nil {

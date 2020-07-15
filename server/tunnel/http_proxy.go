@@ -5,7 +5,6 @@ import (
     "fmt"
     "log"
     "net"
-    "time"
 
     "github.com/earaujoassis/hermes/tcp"
 )
@@ -14,7 +13,6 @@ func handle(clientConn net.Conn) {
     defer clientConn.Close()
     log.Println(fmt.Sprintf("[TUNNEL] Received a connection from: %s", clientConn.RemoteAddr()))
     for {
-        clientConn.SetReadDeadline(time.Now().Add(time.Millisecond * 200))
         requestBuffer, err := tcp.ReadConn(clientConn)
         if requestBuffer.Len() > 0 {
             // fmt.Printf("%#v\n", requestBuffer.String())
