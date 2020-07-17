@@ -10,7 +10,8 @@ import (
 
 func proxyConn(requestBuffer []byte) (bytes.Buffer, error) {
     var responseBuffer bytes.Buffer
-    tunnelConn, err := net.Dial("tcp", config.LoadConfig().ClientHandlerServer)
+    var globalConfig config.Config = config.LoadConfig()
+    tunnelConn, err := net.Dial("tcp", globalConfig.ClientHandlerServer)
     if err != nil {
         return responseBuffer, err
     }

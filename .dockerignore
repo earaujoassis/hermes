@@ -4,6 +4,7 @@
 .tool-versions
 bin/
 pki-client/
+pki-server/
 *.log
 Dockerfile
 docker-compose.yml

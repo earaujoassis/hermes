@@ -26,6 +26,7 @@ ENV GIN_MODE=release
 ENV GO111MODULE=on
 
 RUN mkdir -p /app
+RUN mkdir -p /app/pki-server
 
 WORKDIR /app
 
