@@ -2,16 +2,12 @@ package config
 
 import (
     "os"
-    "os/user"
     "encoding/json"
     "io/ioutil"
     "log"
-    "path/filepath"
 )
 
-const (
-    localConfigurationFile = ".hermes.config.json"
-)
+var globalConfig Config
 
 // Config struct with configuration data for the client application
 type Config struct {
@@ -22,22 +18,24 @@ type Config struct {
     KeyFile string `json:"hermes_keyfile"`
 }
 
+// GetGlobalConfig returns the global configuration struct for the application
+func GetGlobalConfig() Config {
+    return globalConfig
+}
+
 // LoadConfig loads the globalConfig structure from a JSON-based stream
-func LoadConfig() Config {
-    var globalConfig Config
+func LoadConfig(filepath string) Config {
     var dataStream []byte
     var err error
 
-    usr, _ := user.Current()
-    fullPathLocalConfigurationFile, _ := filepath.Abs(filepath.Join(usr.HomeDir, localConfigurationFile))
-    if _, jErr := os.Stat(fullPathLocalConfigurationFile); jErr == nil {
-        // "~/.hermes.config.json" exists
-        dataStream, err = ioutil.ReadFile(fullPathLocalConfigurationFile)
+    if _, jErr := os.Stat(filepath); jErr == nil {
+        // if "filepath" exists
+        dataStream, err = ioutil.ReadFile(filepath)
         if err != nil {
             panic(err)
         }
     } else {
-        // no configuration option available
+        // otherwise, no configuration option available
         log.Fatal("> No configuration option is available; panic")
     }
 

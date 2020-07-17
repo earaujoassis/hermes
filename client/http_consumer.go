@@ -9,7 +9,7 @@ import (
 )
 
 func setupConsumer() error {
-    var globalConfig config.Config = config.LoadConfig()
+    var globalConfig config.Config = config.GetGlobalConfig()
 
     cfg := config.CreateTLSConfig(globalConfig.CACertFile, globalConfig.CertFile, globalConfig.KeyFile)
     conn, err := amqp.DialTLS(globalConfig.AmqpUrl, cfg)

@@ -3,6 +3,8 @@ package main
 import (
     "log"
     "os"
+    "os/user"
+    "path/filepath"
 
     "github.com/joho/godotenv"
     "github.com/urfave/cli"
@@ -21,6 +23,8 @@ func loadDotenv() {
 }
 
 func main() {
+    var filepathConfig string
+
     app := cli.NewApp()
     app.Name = "Hermes"
     app.Usage = "An application for introspected tunnels to localhost"
@@ -48,8 +52,20 @@ func main() {
         {
             Name:    "client",
             Usage:   "Client resposible for creating and retrieving HTTP messages",
+            Flags:   []cli.Flag{
+                cli.StringFlag{
+                    Name:  "config, c",
+                    Usage: "Load configuration from `FILE`",
+                    Value: "",
+                    Destination: &filepathConfig,
+                },
+            },
             Action:  func(c *cli.Context) error {
-                client.SetupClient()
+                if filepathConfig == "" {
+                    usr, _ := user.Current()
+                    filepathConfig, _ = filepath.Abs(filepath.Join(usr.HomeDir, ".hermes.config.json"))
+                }
+                client.SetupClient(filepathConfig)
                 return nil
             },
         },
