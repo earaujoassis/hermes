@@ -1,16 +1,16 @@
 package web
 
 import (
-    "net/http"
+	"net/http"
 
-    "github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin"
 )
 
 func listClientsHandler(c *gin.Context) {
-    c.JSON(http.StatusOK, H{
-        "_status":  "success",
-        "clients": nil,
-    })
+	c.JSON(http.StatusOK, H{
+		"_status": "success",
+		"clients": nil,
+	})
 }
 
 func createClientHandler(c *gin.Context) {
